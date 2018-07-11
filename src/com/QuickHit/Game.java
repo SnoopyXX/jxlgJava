@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Game {
     
-    
+    Player player;
     /*
         输出字符串
         按照级别不同产生不同的字符串
@@ -64,26 +64,26 @@ public class Game {
         if(flag){
             long currentTime = System.currentTimeMillis();
             //如果超时
-            if((currentTime - new Player().getStartTime())/1000
+            if((currentTime - player.getStartTime())/1000
                     >new Level().getTimeLimit()){//
                 System.out.println("超时，退出");
                 System.exit(1);
             }else{
                 //如果没超时
                 //1 当前积分
-                new Player().setCurScore(new Level().getPerScore());//
+                player.setCurScore(new Level().getPerScore());//
                 //2 已用时间
-                new Player().setEclpsedTime((int)((currentTime - new Player().getStartTime())/1000));
-                System.out.println(new Player().getLevelNo() + ","+
-                                    new Player().getCurScore() + ","+
-                                    new Player().getEclpsedTime()
+                player.setEclpsedTime((int)((currentTime - player.getStartTime())/1000));
+                System.out.println(player.getLevelNo() + ","+
+                                    player.getCurScore() + ","+
+                                    player.getEclpsedTime()
                 );
                 //判断用户是否到了最后一关
-                if(new Player().getLevelNo() == 6){
+                if(player.getLevelNo() == 6){
                     int score = new Level().getPerScore()
                             * new Level().getStrTimes();
 
-                    if(new Player().getCurScore() == score){
+                    if(player.getCurScore() == score){
                         System.out.println("成功");
                         System.exit(0); //正常退出程序
                     }
