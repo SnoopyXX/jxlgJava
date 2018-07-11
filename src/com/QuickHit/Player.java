@@ -60,3 +60,9 @@ public class Player {
         }
     }
 }
+/*
+    mysql 数据库
+    mysql jdbc 驱动jar包
+    mysql jdbc
+    mysql图形化管理工具 navicat for mysql,workbench,SQLyog
+ */
