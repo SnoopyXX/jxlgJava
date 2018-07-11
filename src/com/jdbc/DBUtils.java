@@ -1,6 +1,7 @@
 package com.jdbc;
 
 import java.sql.*;
+import java.util.List;
 
 public class DBUtils {
 
@@ -33,6 +34,40 @@ public class DBUtils {
             e.printStackTrace();
         }
         return pspt;
+    }
+
+    //新增、删除、修改操作
+    public int doUpdate(String sql,Object[] objects){
+        int result = 0;
+        try {
+            pspt = connection.prepareStatement(sql);
+            for (int i = 0; i <objects.length; i++) {
+                pspt.setObject(i+1,objects[i]);
+            }
+            result = pspt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public ResultSet find(String sql,List<Object> objects){
+        try {
+            pspt = connection.prepareStatement(sql);
+            if(sql.contains("like")){
+                for (int i = 0; i <objects.size(); i++) {
+                    pspt.setObject(i+1,"%"+objects.get(i)+"%");
+                }
+            }else{
+                for (int i = 0; i <objects.size(); i++) {
+                    pspt.setObject(i+1,objects.get(i));
+                }
+            }
+            rs = pspt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rs;
     }
 
     //获取ResultSet对象

@@ -1,6 +1,9 @@
 package com.jdbc;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClazzDO {
 
@@ -27,7 +30,28 @@ public class ClazzDO {
         return result;
     }
     //删除
+    public int delete(String id){
+        int result = 0;
+        String[] objs = {id};
+        return result= new DBUtils().doUpdate("delete from clazz where id = ?",objs);
+    }
+
 
     //查询
+    public List<Clazz> find(List<Object> objects){
+        List<Clazz> list = new ArrayList<Clazz>();
+//        String[] objs = {condition};
+        try {
+            ResultSet rs = new DBUtils().find("select * from clazz where like ?",objects);
+            while(rs.next()){
+                Clazz clazz = new Clazz();
+                clazz.setName(rs.getString(2));
+                list.add(clazz);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
 }
